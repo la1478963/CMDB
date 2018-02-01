@@ -1,0 +1,14 @@
+需要修改 setting中的配置，
+mysql配置、salt-api 的配置
+
+访问  /arya/client_func.html/
+触发 所有服务器更新(通过 salt-api->salt-master->salt-client->django-api->ORM入库)
+建议 先将 settings 中的 中间件 'rbac.middlewares.rbac.RbacMiddleware',  注释掉，
+然后 增加 登录用户， 授权等操作；
+权限是通过 url 控制的 可以通过正则匹配， 权限表中的 code 字段 为写死的几个值:'add,upd,sel,del'
+前端通过这个字段 判断是不是 有 对应权限（增删改查）,
+
+
+
+
+

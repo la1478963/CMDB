@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>首页</h1>
+    <div class="kuai btn-default btn-blue btn svn ">
+        svn 更新
+    </div>
+    <div class="kuai btn-default btn-blues btn  hosts">
+        主机详情
+    </div>
+
+    <div class="kuai btn-default btn-yello btn ">
+        监控
+    </div>
+
+    <div class="kuai btn-default btn-red btn ">
+        docker
+    </div>
+
+    <div class="kuai btn-default btn-grenn btn ">
+        发布项目
+    </div>
+
+    <div class="kuai btn-default btn-test btn ">
+        测试环境
+    </div>
+
+{#    <div>#}
+{#        #}
+{#    </div>#}
+    <style>
+    .btn-test{
+        background-color: #74829c;
+    }
+     .btn-blues{
+         background-color: #00aced;
+     }
+
+    .btn-blue{
+        background-color: blue;
+    }
+    .btn-yello{
+        background-color: yellow;
+    }
+    .btn-red{
+        background-color: red;
+    }
+        .btn-grenn{
+            background-color: green;
+        }
+        .kuai{
+            height: 250px;
+            width: 250px;
+            font-size: 30px;
+            line-height: 250px;
+            margin: 40px;
+        }
+        button{
+            width: 300px;
+        }
+    </style>
+
+
+{% endblock %}

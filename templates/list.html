@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <div style="margin: 10px 0">
+            {% if data.get_show_add %}
+                <a href="{{ data.add_url }}" class="btn btn-primary">添加</a>
+            {% endif %}
+
+            {% if data.get_search_list %}
+            <div class="search-label-icon" style="margin: 10px 0">
+                <form method="GET">
+                    <input type="text" name="q" value="{{ data.get_q }}" class="form-control form_search_q" style="width: 30%;float: left">
+                    <input type="submit" value="搜索" class="btn btn-primary" />
+                </form>
+
+            </div>
+            {% endif %}
+
+        </div>
+
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    {% for i in data.table_head %}
+                            <th>{{ i }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data.table_body %}
+                    <tr>
+                        {% for i in item %}
+                            <td>{{ i }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if data.get_show_dels %}
+            <div class="dels">
+                <a  class="btn btn-danger">批量删除</a>
+            </div>
+        {% endif %}
+
+
+        <ul class="pagination">
+            {{ data.page_html|safe }}
+        </ul>
+
+    </div>
+
+
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="/arya/static/arya/plugins/bootstrap/css/bootstrap.css"/>
+    <style>
+        .dels{
+            display: none;
+        }
+    </style>
+{% endblock %}

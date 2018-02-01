@@ -1,0 +1,12 @@
+.item-permission{
+    padding: 3px 10px;
+}
+.item-permission a{
+    display: block;
+}
+.item-permission a.active{
+    color: red;
+}
+.hide{
+    display: none;
+}

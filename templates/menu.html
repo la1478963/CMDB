@@ -1,0 +1,25 @@
+{#{% for key,val in result %}#}
+{% for key,val in menu_dict.items %}
+    <li class="sub-menu">
+        <a href="javascript:;">
+            <i class="icon_document_alt"></i>
+            <span>{{ val.menu_title }}</span>
+            <span class="menu-arrow arrow_carrot-right"></span>
+        </a>
+        {% if val.active %}
+            <ul class="sub" style="display: block">
+        {% else %}
+            <ul class="sub" style="display: none">
+        {% endif %}
+
+            {% for item in val.children %}
+                <li class="sub-menu">
+                    <a href="{{ item.url }}" >
+                        <i class="icon_document_alt"></i>
+                        <span>{{ item.title }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </li>
+{% endfor %}

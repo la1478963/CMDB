@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form method="POST" novalidate>
+    {% csrf_token %}
+        {% for item in data %}
+            <div class="form-group col-sm-6" style="margin-bottom: 20px;">
+                <label for="inputEmail3" class="col-sm-2 control-label">{{ item.label }}</label>
+                <div class="col-sm-10" style="position: relative">
+                    <!-- <input type="email" class="form-control" id="inputEmail3" placeholder="Email"> -->
+                    {{ item }}
+                    <div style="position: absolute;">{{ item.errors.0 }}</div>
+                </div>
+
+            </div>
+        {% endfor %}
+        <div class="form-group">
+            <div class="col-sm-offset-1 col-sm-10">
+                <input type="submit" class="btn btn-primary" value="提交">
+            </div>
+        </div>
+</form>
+{% endblock %}
+

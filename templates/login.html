@@ -1,0 +1,121 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<head>
+	<title>CMDB</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet"  href='{% static "dist/css/bootstrap.min.css" %}' type="text/css">
+	<link rel="stylesheet"  href='{% static "dist/css/font-awesome.min.css" %}' type="text/css">
+	<link rel="stylesheet"  href='{% static "dist/css/bootstrap.min.css" %}' type="text/css">
+	<link rel="stylesheet"  href='{% static "dist/css/templatemo_style.css" %}' type="text/css">
+
+    <script src="{% static 'dist/js/jquery-3.1.1.js' %}"></script>
+    <script src="{% static 'dist/js/bootstrap.js' %}"></script>
+
+
+</head>
+<body class="templatemo-bg-gray">
+
+<div class="all">
+	<div class="container">
+		<div class="col-md-12">
+			<h1 class="margin-bottom-15">CMDB登录入口</h1>
+			<form class="form-horizontal templatemo-container templatemo-login-form-1 margin-bottom-30" id="f1" role="form">
+                {% csrf_token %}
+		        <div class="form-group">
+		          <div class="col-xs-12">
+		            <div class="control-wrapper">
+		            	<label for="username" class="control-label fa-label"><i class="fa fa-user fa-medium"></i></label>
+                        <p id="username">{{ form.username }}</p>
+		            </div>
+		          </div>
+		        </div>
+		        <div class="form-group">
+		          <div class="col-md-12">
+		          	<div class="control-wrapper">
+		            	<label for="password" class="control-label fa-label"><i class="fa fa-lock fa-medium"></i></label>
+                        <p id="password">{{ form.password }}</p>
+		            </div>
+                      <input type="text" class="form-control" name="code">
+                      <img src="/code.html" onclick="CodeImg(this);">
+		          </div>
+		        </div>
+		        <div class="form-group">
+		          <div class="col-md-12"></div>
+		        </div>
+		        <div class="form-group">
+		          <div class="col-md-12">
+		          	<div class="control-wrapper">
+		          		<input type="button" value="登录" class="btn btn-info submit" id="submit">
+						<input type="button" value="注册" class="btn btn-info Register">
+		          	</div>
+
+		          </div>
+		        </div>
+		        <hr>
+		      </form>
+		</div>
+	</div>
+
+</div>
+</body>
+<style>
+	.all{
+		margin-top:200px;
+	}
+</style>
+</html>
+
+<script>
+    function CodeImg(ths) {
+        ths.src = ths.src + "?";
+    }
+    $('p input').click(function () {
+        $(this).val('')
+    });
+
+    $("#submit").click(function () {
+        $('.error').remove();
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' }
+        });
+        $.ajax({
+            url:'/arya/login/',
+            type:'POST',
+            dataType:'JSON',
+            data:$('#f1').serialize(),
+            success:function (data) {
+                console.log(data.msg);
+                if (data.msg) {
+                    if (data.status){
+{#                        window.location.href = "/host.html"#}
+                        window.location.href = "/arya/home/"
+                    }
+                    else{
+                        alert(data.data)
+                    }
+
+                }
+                else {
+                    $.each(data.data, function (k, v) {
+                        var pig = document.createElement('span');
+                        pig.innerHTML = v[0];
+                        pig.className = "error";
+                        // <span class='error'>v[0]</span>
+                        console.log(v[0]);
+
+                        $('#f1 input[name="' + k + '"]').after(pig);
+                    })
+                }
+            }
+        })
+    });
+
+
+	$(".Register").click(function () {
+		window.location.replace("/register.html");
+    })
+</script>

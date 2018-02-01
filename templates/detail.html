@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="host_jibenxinxi">
+        <button class="btgx btn btn-primary ">更新主机</button>
+{#        <input type="button" value="更新主机" class="btn btn-primary btgx" />#}
+        <table class="table table-condensed table-hover table-bordered">
+            <tr>
+                <th class="success">基本信息</th>
+            </tr>
+            <tr>
+                <td>
+                    主机名:{{ obj.hostname }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    eth1_IP: {{ obj.eth1_network }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    eth0_IP: {{ obj.eth0_network }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    登录端口: {{ obj.login_port }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    登录密码:{{ obj.login_pwd }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    业务线:{{ obj.busnesses }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    用途:{% for i in obj.purposes.all  %} {{ i }} {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    来源:{{ obj.source }}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+{% endblock %}
+{% block css %}
+        .host_jibenxinxi{
+            display: inline-block;
+            height: 400px;
+            width: 300px;
+        }
+        .btgx{
+            margin-bottom: 20px;
+        }
+{% endblock %}
+
+{% block js %}
+      $('.btgx').click(function () {
+            var hostname=$('td:first').text();
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' }
+            });
+            $.ajax({
+                url:'',
+                type:'POST',
+                data:{'hostname':hostname},
+                success:function (data) {
+                    if (data=='ok'){
+                        alert('更新成功');
+                    }else{
+                        alert('更新失败');
+                    }
+                }
+            })
+        })
+
+{% endblock %}

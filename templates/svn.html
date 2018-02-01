@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+{#    <h3>提示:如果是add请求， 最后一项 “服务器更新代码路径：” 请写文件的绝对路径 例如/mnt/www/111.txt</h3>#}
+    <div>
+        <p  class="lead" style="color:blue;">老版爬虫服务路径是(点击这里)：
+            <button class="file_bt">/mnt/www/py_worm</button>
+        </p>
+        <p  class="lead" style="color:blue;">
+            老版爬虫所有服务器(点击这里)：
+            <button class="hosts_bt">老版所有爬虫服务器</button>
+        </p>
+    </div>
+    <div class="col-md-5">
+        <form  method="post" novalidate>
+        {% csrf_token %}
+            <div class="form-group">
+                <label for="host_item" style="color:blue;">选择主机:</label>
+                <select name="hosts" id="host_item" class="host_item" multiple="multiple" size="10">
+                {% for item in h_li %}
+                    <option name="{{ item }}">{{ item }}</option>
+                {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label style="color:blue;">动作：</label>
+                <select name="svn_func">
+                    <option>{{ obj.name }}</option>
+                </select>
+            </div>
+            {% if nid == '1' %}
+                <div class="form-group">
+                    <label for="host_item" style="color:blue;">选择url:</label>
+                    <select name="svn_url" id="host_item">
+                    {% for url in svn_url_li %}
+                        <option>{{ url.name }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
+            <div class="form-group">
+                <label style="color:blue;">服务器更新代码路径：</label>
+                <input type="text" name="route" class="route_file">
+            </div>
+            <input type="submit" value="提交" class="btn btn-primary">
+        </form>
+    </div>
+    <div>
+        <label style="color:blue;">提交结果:</label>
+        <textarea name="ret"  cols="50" rows="30">{{ ret }}</textarea>
+    </div>
+{% endblock %}
+
+
+{% block css %}
+    <style>
+        .file_bt{
+            color: red;
+        }
+    </style>
+
+    <script>
+        $('.file_bt').click(function () {
+            var $va=$(this).text();
+            $('.route_file').val($va);
+        });
+        
+        $('.hosts_bt').click(function () {
+            $('.host_item option[name *= "bdopener_worm"]').each(function () {
+                $(this).attr('selected','selected');
+            });
+
+        })
+
+    </script>
+
+{% endblock %}
+
